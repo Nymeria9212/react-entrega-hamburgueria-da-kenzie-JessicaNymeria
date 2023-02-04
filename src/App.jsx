@@ -12,7 +12,7 @@ function App() {
   const [products, setProducts] = useState([]);
 
   const [currentSale, setCurrentSale] = useState(
-    localStorage ? JSON.parse(localCart) : []
+    localCart ? JSON.parse(localCart) : []
   );
   const [totalItems, setTotalItems] = useState(
     localTotalItems ? JSON.parse(localTotalItems) : 0
