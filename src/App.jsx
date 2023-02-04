@@ -12,7 +12,17 @@ function App() {
   const [products, setProducts] = useState([]);
 
   const [currentSale, setCurrentSale] = useState(
-    localStorage ? JSON.parse(localCart) : []
+    localStorage
+      ? JSON.parse(localCart)
+      : [
+          {
+            id: 1,
+            name: "Hamburguer",
+            category: "Sanduíches",
+            price: 14,
+            img: "https://i.imgur.com/Vng6VzV.png",
+          },
+        ]
   );
   const [totalItems, setTotalItems] = useState(
     localTotalItems ? JSON.parse(localTotalItems) : 0
