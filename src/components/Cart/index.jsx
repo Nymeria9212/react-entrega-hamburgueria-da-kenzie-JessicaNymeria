@@ -15,7 +15,7 @@ export function CartProducts({
 }) {
   return (
     <>
-      {currentSale.length == 0 ? (
+      {currentSale == [] ? (
         <AsydeCart>
           <CartStyle>
             <h2>Carinho de compras</h2>
