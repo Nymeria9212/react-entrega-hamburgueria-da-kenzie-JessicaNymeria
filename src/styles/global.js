@@ -76,6 +76,8 @@ body{
     --title-3:1.125rem;
     --title-4:0.875rem;
     --text:1rem;
+    --text-2:0.75rem;
+    --text-3:0.5rem;
 
     --weigth-bold-1:700;
     --weigth-bold-2:600;
@@ -109,4 +111,6 @@ export const Main = styled.main`
 `
 export const DivSearch = styled.div`
 margin-left: 2.5rem;
+display: flex;
+gap: 1.5rem;
 `

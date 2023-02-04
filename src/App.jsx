@@ -7,12 +7,20 @@ import { CartProducts } from "./components/Cart";
 
 function App() {
   const localCart = localStorage.getItem("@Cart");
+  const localTotalValue = localStorage.getItem("@totalCart");
+  const localTotalItems = localStorage.getItem("@totalItems");
   const [products, setProducts] = useState([]);
+
   const [currentSale, setCurrentSale] = useState(
     localStorage ? JSON.parse(localCart) : []
   );
-  const [totalItems, setTotalItems] = useState(0);
-  const [cartTotal, setCartTotal] = useState(0);
+  const [totalItems, setTotalItems] = useState(
+    localTotalItems ? JSON.parse(localTotalItems) : 0
+  );
+  const [cartTotal, setCartTotal] = useState(
+    localTotalValue ? JSON.parse(localTotalValue) : 0
+  );
+
   const [searchValue, setSearchValue] = useState("");
 
   const search = products.filter((food) => {
@@ -37,6 +45,13 @@ function App() {
   useEffect(() => {
     localStorage.setItem("@Cart", JSON.stringify(currentSale));
   }, [currentSale]);
+
+  useEffect(() => {
+    localStorage.setItem("@totalCart", JSON.stringify(cartTotal));
+  }, [cartTotal]);
+  useEffect(() => {
+    localStorage.setItem("@totalItems", JSON.stringify(totalItems));
+  }, [totalItems]);
 
   function addProductCart(product) {
     const findCard = currentSale.find((item) => item.id == product.id);
@@ -76,7 +91,7 @@ function App() {
       <Header setSearchValue={setSearchValue} />
       {searchValue && (
         <DivSearch>
-          <p>Produtos encontrados: {searchValue}</p>
+          <p>Resultados para: {searchValue}</p>
           <button
             onClick={() => {
               setSearchValue("");

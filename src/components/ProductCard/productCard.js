@@ -4,8 +4,8 @@ import styled from "styled-components";
 export const ProductLi = styled.li`
         height: 346px;
         width: 30%;
-        min-width: 289px;
-        max-width: 330px;
+        min-width: 260px;
+        max-width: 260px;
         border: 2px solid var(--grey-scale-20);
         border-radius: var(--radius-2);
 

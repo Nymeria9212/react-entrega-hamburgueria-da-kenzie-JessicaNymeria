@@ -3,11 +3,17 @@ import styled from "styled-components";
 
 export const AsydeCart = styled.aside`
 width: 90%;
-height: 500px;
+height: 900px;
 
 ul{
     overflow-y: auto;
     height: 300px;
+    background-color: var(--grey-scale-0);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top:0.5rem;
+    border-bottom: 2px solid var(--grey-scale-20);
 }
 .cartOff{
     width: -webkit-fill-available;
@@ -34,6 +40,8 @@ export const CartStyle = styled.div`
     align-items: center;
     padding: 0 2rem;
     border-radius: 6px 6px 0 0;
+    font-family: var(--font-family);
+    font-weight: var(--weigth-bold-2);
     
 
 `

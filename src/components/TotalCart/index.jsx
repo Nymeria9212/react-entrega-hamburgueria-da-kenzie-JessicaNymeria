@@ -23,13 +23,14 @@ export function TotalPrice({
         </p>
       </div>
       <button
+        className="btnRemove"
         onClick={() => {
           setCurrentSale([]);
           setCartTotal(0);
           setTotalItems(0);
         }}
       >
-        Remover todos os itens
+        Remover todos
       </button>
     </DivTotal>
   );
