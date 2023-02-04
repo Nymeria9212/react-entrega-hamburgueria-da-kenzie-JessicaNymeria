@@ -1,12 +1,26 @@
-export function CardToCard({ img, category, name }) {
+import { CardCart } from "./style";
+
+export function CardToCard({ product, removeProductCard }) {
   return (
-    <li>
-      <img src={img} />
-      <div>
-        <h3>{name}</h3>
-        <p>{category}</p>
+    <CardCart>
+      <div className="product">
+        <img src={product.img} />
+        <div>
+          <h3>{product.name}</h3>
+          <p>{product.category}</p>
+        </div>
       </div>
-      <button>Remover</button>
-    </li>
+
+      <div className="btn-card-Cart">
+        <span>{product.count} Quant.</span>
+        <button
+          onClick={() => {
+            removeProductCard(product);
+          }}
+        >
+          Remover
+        </button>
+      </div>
+    </CardCart>
   );
 }

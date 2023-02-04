@@ -50,7 +50,9 @@ table {
 	border-spacing: 0;
 }
 
-
+body{
+    height: 100vh;
+}
 
 
 :root{
@@ -104,4 +106,7 @@ export const Main = styled.main`
     align-items: flex-start;
     }
 
+`
+export const DivSearch = styled.div`
+margin-left: 2.5rem;
 `

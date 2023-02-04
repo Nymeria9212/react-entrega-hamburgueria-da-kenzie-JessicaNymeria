@@ -1,4 +1,4 @@
-import { GlobalStyles, Main } from "./styles/global";
+import { DivSearch, GlobalStyles, Main } from "./styles/global";
 import { useEffect, useState } from "react";
 import { Header } from "./components/Header/index";
 import { api } from "./services/api";
@@ -6,10 +6,21 @@ import { ProductsList } from "./components/ProductsList";
 import { CartProducts } from "./components/Cart";
 
 function App() {
+  const localCart = localStorage.getItem("@Cart");
   const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const [currentSale, setCurrentSale] = useState([]);
+  const [currentSale, setCurrentSale] = useState(
+    localStorage ? JSON.parse(localCart) : []
+  );
+  const [totalItems, setTotalItems] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
+  const [searchValue, setSearchValue] = useState("");
+
+  const search = products.filter((food) => {
+    return searchValue === ""
+      ? true
+      : food.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+          food.category.toLowerCase().includes(searchValue.toLocaleLowerCase());
+  });
 
   useEffect(() => {
     async function productsKenzie() {
@@ -23,15 +34,69 @@ function App() {
     productsKenzie();
   }, []);
 
-  console.log(products);
+  useEffect(() => {
+    localStorage.setItem("@Cart", JSON.stringify(currentSale));
+  }, [currentSale]);
 
+  function addProductCart(product) {
+    const findCard = currentSale.find((item) => item.id == product.id);
+    if (!findCard) {
+      const cardCart = { ...product, count: 1 };
+      setCurrentSale([...currentSale, cardCart]);
+
+      setCartTotal(cartTotal + product.price);
+      setTotalItems(totalItems + 1);
+    } else {
+      const newFindCard = { ...findCard, count: findCard.count + 1 };
+      const index = currentSale.findIndex((item) => item.id == findCard.id);
+      const newCurrentSale = currentSale.splice(index, 1, newFindCard);
+      setCartTotal(cartTotal + product.price);
+      setTotalItems(totalItems + 1);
+    }
+  }
+  function removeProductCard(product) {
+    if (product.count > 1) {
+      setCartTotal(cartTotal - product.price);
+      setTotalItems(totalItems - 1);
+      const newFindCard = { ...product, count: product.count - 1 };
+      const index = currentSale.findIndex((item) => item.id == product.id);
+      currentSale.splice(index, 1, newFindCard);
+    } else if (product.count === 1) {
+      const filterDelete = currentSale.filter((item) => {
+        return item.id != product.id;
+      });
+      setCurrentSale(filterDelete);
+      setCartTotal(cartTotal - product.price);
+      setTotalItems(totalItems - 1);
+    }
+  }
   return (
     <div className="App">
       <GlobalStyles />
-      <Header />
+      <Header setSearchValue={setSearchValue} />
+      {searchValue && (
+        <DivSearch>
+          <p>Produtos encontrados: {searchValue}</p>
+          <button
+            onClick={() => {
+              setSearchValue("");
+            }}
+          >
+            Limpar Busca
+          </button>
+        </DivSearch>
+      )}
       <Main>
-        <ProductsList products={products} />
-        <CartProducts currentSale={currentSale} />
+        <ProductsList addProductCart={addProductCart} search={search} />
+        <CartProducts
+          currentSale={currentSale}
+          total={totalItems}
+          totalValue={cartTotal}
+          setCurrentSale={setCurrentSale}
+          setCartTotal={setCartTotal}
+          setTotalItems={setTotalItems}
+          removeProductCard={removeProductCard}
+        ></CartProducts>
       </Main>
     </div>
   );

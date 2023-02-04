@@ -11,6 +11,8 @@ export const ListProducts = styled.ul`
     @media (min-width:800px){
         flex-direction: row;
         flex-wrap: wrap;
+        width: 70%;
+        
     }
 
 `

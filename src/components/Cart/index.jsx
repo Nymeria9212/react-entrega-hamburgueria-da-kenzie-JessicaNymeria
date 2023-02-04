@@ -1,32 +1,49 @@
 import CartOff from "../../assets/CartOff.svg";
 import { CardToCard } from "../CardToCart";
-import { CartStyle } from "./cart";
+import { TotalPrice } from "../TotalCart";
 
-export function CartProducts({ currentSale }) {
+import { AsydeCart, CartStyle } from "./cart";
+
+export function CartProducts({
+  currentSale,
+  total,
+  totalValue,
+  setCurrentSale,
+  setCartTotal,
+  setTotalItems,
+  removeProductCard,
+}) {
   return (
     <>
       {currentSale.length == 0 ? (
-        <div>
+        <AsydeCart>
           <CartStyle>
             <h2>Carinho de compras</h2>
           </CartStyle>
-          <img src={CartOff} alt="Carrinho vazio" />
-        </div>
+          <img className="cartOff" src={CartOff} alt="Carrinho vazio" />
+        </AsydeCart>
       ) : (
-        <div>
+        <AsydeCart>
           <CartStyle>
             <h2>Carinho de compras</h2>
           </CartStyle>
           <ul>
             {currentSale.map((product) => (
               <CardToCard
-                name={product.name}
-                category={product.category}
-                img={product.img}
+                key={product.id}
+                product={product}
+                removeProductCard={removeProductCard}
               />
             ))}
           </ul>
-        </div>
+          <TotalPrice
+            total={total}
+            totalValue={totalValue}
+            setCurrentSale={setCurrentSale}
+            setCartTotal={setCartTotal}
+            setTotalItems={setTotalItems}
+          />
+        </AsydeCart>
       )}
     </>
   );

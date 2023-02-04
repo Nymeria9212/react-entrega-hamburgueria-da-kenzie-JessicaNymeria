@@ -1,16 +1,14 @@
 import { ProductCard } from "../ProductCard";
 import { ListProducts } from "./productsList";
 
-export function ProductsList({ products }) {
+export function ProductsList({ search, addProductCart }) {
   return (
     <ListProducts>
-      {products.map((product) => (
+      {search.map((product) => (
         <ProductCard
+          addProductCart={addProductCart}
           key={product.id}
-          name={product.name}
-          category={product.category}
-          price={product.price}
-          img={product.img}
+          product={product}
         />
       ))}
     </ListProducts>
