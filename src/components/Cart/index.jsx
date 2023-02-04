@@ -13,7 +13,6 @@ export function CartProducts({
   setTotalItems,
   removeProductCard,
 }) {
-  console.log(currentSale);
   return (
     <>
       {currentSale.length == 0 ? (
